@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera Information</title>
+    <link rel="icon" href="{% static 'icons/favicon.ico' %}" type="image/x-icon">
+    <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet">
+    <style>
+        form input{
+            border: 2px solid gray !important;
+            border-radius: 5px;
+            padding: 5px 3px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto bg-white p-8 my-10 rounded shadow-md">
+        <h1 class="text-2xl font-bold mb-8">Camera Information</h1>
+        <form method="post" action="{% url 'config' %}" class="space-y-4">
+            {% csrf_token %}
+            <div class="flex flex-col">
+                <label for="camera_ip" class="text-gray-700 font-bold mb-2">Camera IP:</label>
+                {{ form.camera_ip }}
+            </div>
+            <div class="flex flex-col">
+                <label for="username" class="text-gray-700 font-bold mb-2">Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="flex flex-col">
+                <label for="password" class="text-gray-700 font-bold mb-2">Password:</label>
+                {{ form.password }}
+            </div>
+            <div>
+                <input type="submit" value="Save" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            </div>
+        </form>
+    </div>
+</body>
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Camera Information</h1>-->
+<!--        <form method="post" action="">-->
+<!--            {% csrf_token %}-->
+<!--            <div>-->
+<!--                <label for="camera_ip">Camera IP:</label>-->
+<!--                {{ form.camera_ip }}-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="username">Username:</label>-->
+<!--                {{ form.username }}-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="password">Password:</label>-->
+<!--                {{ form.password }}-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <input type="submit" value="Save">-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</body>-->
+</html>
+

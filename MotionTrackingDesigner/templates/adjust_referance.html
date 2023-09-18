@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Camera Feed</title>
+    <link rel="icon" href="{% static 'icons/favicon.ico' %}" type="image/x-icon">
+    <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="relative h-screen">
+        <img id="camera-feed" src="{% url 'camera_feed' %}" alt="Camera Feed" class="object-contain h-full w-full">
+        <div class="absolute top-0 left-0 w-full flex items-center justify-center">
+            <h1 class="text-white text-2xl bg-black bg-opacity-50 p-2">Live Camera Feed</h1>
+        </div>
+        <a href="{% url 'config' %}" class="absolute top-16 right-4">
+            <img src="{% static 'icons/gear.svg' %}" alt="Settings" class="w-8 h-8">
+        </a>
+        <a href="/" class="absolute top-4 right-4">
+            <img src="{% static 'icons/home.svg' %}" alt="Home" class="w-8 h-8">
+        </a>
+    </div>
+
+    <script>
+        // Function to display a pop-up message
+        function displayPopup(message) {
+            const popup = document.createElement('div');
+            popup.className = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10';
+
+            const content = document.createElement('div');
+            content.className = 'bg-white p-4 rounded-lg text-center';
+
+            const text = document.createElement('p');
+            text.textContent = message;
+
+            const button = document.createElement('a');
+            button.href = "{% url 'config' %}";
+            button.className = 'text-blue-500 font-medium';
+            button.textContent = 'Go to Camera Settings';
+
+            content.appendChild(text);
+            content.appendChild(button);
+            popup.appendChild(content);
+            document.body.appendChild(popup);
+        }
+
+        // Function to check if the camera feed loaded within 10 seconds
+        function checkCameraFeed() {
+            const cameraFeed = document.getElementById('camera-feed');
+            if (!cameraFeed.complete) {
+                displayPopup('Camera settings not available. Please check your camera settings.');
+            }
+        }
+
+        // Set a timer to check camera feed after 10 seconds
+        setTimeout(checkCameraFeed, 10000);
+        </script>
+</body>
+</html>
